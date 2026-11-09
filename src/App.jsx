@@ -1,10 +1,7 @@
+import ComponentShowcase from './pages/ComponentShowcase';
+
 function App() {
-  return (
-    <main>
-      <h1>Lumora</h1>
-      <p>Seu assistente de suporte inteligente.</p>
-    </main>
-  );
+  return <ComponentShowcase />;
 }
 
 export default App;
