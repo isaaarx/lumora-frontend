@@ -1,5 +1,14 @@
-import { Send, SlidersHorizontal, ArrowDown} from 'lucide-react';
+import { 
+  Send, 
+  SlidersHorizontal, 
+  ArrowDown, 
+  Archive, 
+  Clock, 
+  Play, 
+  Check } from 'lucide-react';
+
 import Button from '../components/Button/Button';
+import StatCard from '../components/Card/StatCard';
 
 function ComponentShowcase() {
   return (
@@ -36,6 +45,31 @@ function ComponentShowcase() {
         <Button variant="outline">
           Visualizar
         </Button>
+      </section>
+
+      <section>
+        <h2>StatCard</h2>
+
+        <StatCard
+          icon={Archive}
+          value={1}
+          label="Total"
+        />
+        <StatCard
+          icon={Clock}
+          value={0}
+          label="Abertos"
+        />
+        <StatCard
+          icon={Play}
+          value={1}
+          label="Em andamento"
+        />
+        <StatCard
+          icon={Check}
+          value={0}
+          label="Resolvidos"
+        />
       </section>
     </main>
   );
