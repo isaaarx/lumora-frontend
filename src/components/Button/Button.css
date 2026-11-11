@@ -28,8 +28,10 @@
 .button-outline {
   background-color: transparent;
   color: var(--dark-text);
-  border: 2px solid var(--primary-color);
-  padding: 6px 12px;
+  border: 1.5px solid var(--primary-color);
+  padding: 5px 12px;
+  font-size: 12px;
+  border-radius: 6px;
 }
 
 .button-outline:hover:not(:disabled) {

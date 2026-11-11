@@ -6,16 +6,31 @@ import {
   Clock, 
   Play,
   Check,
-  CircleExclamationPoint,
-  TriangleExclamationPoint,
+
 } from 'lucide-react';
 
 import Button from '../components/Button/Button';
 import StatCard from '../components/Card/StatCard';
 import StatusBadge from '../components/StatusBadge/StatusBadge';
 import PriorityBadge from '../components/PriorityBadge/PriorityBadge';
+import Table from '../components/Table/Table';
+import tickets from '../mocks/tickets';
 
 function ComponentShowcase() {
+  const totalTickets = tickets.length;
+  
+  const openTickets = tickets.filter(
+    (ticket) => ticket.status === 'Aberto'
+  ).length;
+
+  const inProgressTickets = tickets.filter(
+    (ticket) => ticket.status === 'Em andamento'
+  ).length;
+
+  const solvedTickets = tickets.filter(
+    (ticket) => ticket.status === 'Resolvido'
+  ).length;
+
   return (
     <main>
       <h1>Componentes Lumora</h1>
@@ -49,22 +64,22 @@ function ComponentShowcase() {
 
         <StatCard
           icon={Archive}
-          value={0}
+          value={totalTickets}
           label="Total"
         />
         <StatCard
           icon={Clock}
-          value={0}
+          value={openTickets}
           label="Abertos"
         />
         <StatCard
           icon={Play}
-          value={0}
+          value={inProgressTickets}
           label="Em andamento"
         />
         <StatCard
           icon={Check}
-          value={0}
+          value={solvedTickets}
           label="Resolvidos"
         />
       </section>
@@ -73,17 +88,14 @@ function ComponentShowcase() {
         <h2>StatusBadge</h2>
 
         <StatusBadge 
-          icon={Clock}
           status="Aberto"
         />
 
         <StatusBadge 
-          icon={Play}
           status="Em andamento"
         />
 
         <StatusBadge 
-          icon={Check}
           status="Resolvido"
         />
       </section>
@@ -92,19 +104,22 @@ function ComponentShowcase() {
         <h2>PriorityBadge</h2>
 
         <PriorityBadge 
-          icon={ArrowDown}
           priority="Baixa"
         />
 
         <PriorityBadge 
-          icon={TriangleExclamationPoint}
           priority="Média"
         />
 
         <PriorityBadge 
-          icon={CircleExclamationPoint}
           priority="Alta"
         />
+      </section>
+
+      <section>
+        <h2>Table</h2>
+
+        <Table tickets={tickets} />
       </section>
     </main>
   );

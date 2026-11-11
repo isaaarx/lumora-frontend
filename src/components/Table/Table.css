@@ -1,0 +1,81 @@
+/* Container da tabela */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background-color: var(--background-color);
+  border-radius: 10px;
+}
+
+/* Estrutura da tabela */
+.tickets-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  color: var(--dark-text);
+}
+
+/* Largura das colunas */
+.tickets-table th:nth-child(1),
+.tickets-table td:nth-child(1) {
+  width: 9%;
+}
+
+.tickets-table th:nth-child(2),
+.tickets-table td:nth-child(2) {
+  width: 49%;
+}
+
+.tickets-table th:nth-child(3),
+.tickets-table td:nth-child(3) {
+  width: 18%;
+}
+
+.tickets-table th:nth-child(4),
+.tickets-table td:nth-child(4) {
+  width: 14%;
+}
+
+.tickets-table th:nth-child(5),
+.tickets-table td:nth-child(5) {
+  width: 10%;
+}
+
+/* Cabeçalho */
+.tickets-table thead {
+  background-color: var(--primary-color);
+}
+
+/* Cabeçalho */
+.tickets-table th {
+  padding: 9px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* Linhas e células */
+.tickets-table td {
+  padding: 7px 14px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--dark-color);
+  vertical-align: middle;
+}
+
+/* Assunto */
+.tickets-table td:nth-child(2) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Centralização das colunas de status, prioridade e ações */
+.tickets-table th:nth-child(n + 3),
+.tickets-table td:nth-child(n + 3) {
+  text-align: center;
+}
+
+/* Última linha sem borda inferior */
+.tickets-table tbody tr:last-child td {
+  border-bottom: none;
+}

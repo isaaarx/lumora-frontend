@@ -1,11 +1,11 @@
 .priority-badge {
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-family: var(--font-body);
-    font-size: 16px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .priority-low {
