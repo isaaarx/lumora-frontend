@@ -8,7 +8,6 @@ import {
   Check,
   CircleExclamationPoint,
   TriangleExclamationPoint,
-  ArrowDown,
 } from 'lucide-react';
 
 import Button from '../components/Button/Button';
@@ -39,14 +38,6 @@ function ComponentShowcase() {
           className="button-filter"
           iconSize={22}
         />
-
-        <Button variant="primary">
-          Confirmar
-        </Button>
-
-        <Button variant="outline">
-          Cancelar
-        </Button>
 
         <Button variant="outline">
           Visualizar

@@ -8,17 +8,17 @@
     gap: 6px;
 }
 
-.status-aberto {
+.status-open {
     background-color: var(--open-background);
     color: var(--open-color);
 }
 
-.status-em-andamento {
+.status-in-progress {
     background-color: var(--loading-background);
     color: var(--loading-color);
 }
 
-.status-resolvido {
+.status-solved {
     background-color: var(--solve-background);
     color: var(--solve-color);
 }

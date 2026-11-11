@@ -1,4 +1,3 @@
-
 /* Estilos compartilhados */
 .button {
   padding: 8px 14px;
@@ -23,16 +22,6 @@
 
 .button-primary:hover:not(:disabled) {
   background-color: var(--secondary-color);
-}
-
-/* Botão secundário */
-.button-secondary {
-  background-color: var(--tertiary-color);
-  color: var(--dark-text);
-}
-
-.button-secondary:hover:not(:disabled) {
-  background-color: var(--dark-color);
 }
 
 /* Botão outline */

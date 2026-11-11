@@ -7,11 +7,11 @@ function StatusBadge({
     let statusClass = '';
 
     if (status === 'Aberto') {
-        statusClass = 'status-aberto';
+        statusClass = 'status-open';
     } else if (status === 'Em andamento') {
-        statusClass = 'status-em-andamento';
+        statusClass = 'status-in-progress';
     } else if (status === 'Resolvido') {
-        statusClass = 'status-resolvido';
+        statusClass = 'status-solved';
     }
 
     return (

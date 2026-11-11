@@ -7,11 +7,11 @@ function PriorityBadge({
     let priorityClass = '';
 
     if (priority === 'Baixa') {
-        priorityClass = 'priority-baixa';
+        priorityClass = 'priority-low';
     } else if (priority === 'Média') {
-        priorityClass = 'priority-media';
+        priorityClass = 'priority-medium';
     } else if (priority === 'Alta') {
-        priorityClass = 'priority-alta';
+        priorityClass = 'priority-high';
     }
 
     return (

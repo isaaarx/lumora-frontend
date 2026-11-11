@@ -8,17 +8,17 @@
     gap: 6px;
 }
 
-.priority-baixa {
+.priority-low {
     background-color: var(--solve-background);
     color: var(--solve-color);
 }
 
-.priority-media {
+.priority-medium {
     background-color: var(--medium-background);
     color: var(--medium-color);
 }
 
-.priority-alta {
+.priority-high {
     background-color: var(--high-background);
     color: var(--high-color);
 }
