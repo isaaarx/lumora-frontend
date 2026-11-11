@@ -4,12 +4,17 @@ import {
   ArrowDown, 
   Archive, 
   Clock, 
-  Play, 
-  Check } from 'lucide-react';
+  Play,
+  Check,
+  CircleExclamationPoint,
+  TriangleExclamationPoint,
+  ArrowDown,
+} from 'lucide-react';
 
 import Button from '../components/Button/Button';
 import StatCard from '../components/Card/StatCard';
 import StatusBadge from '../components/StatusBadge/StatusBadge';
+import PriorityBadge from '../components/PriorityBadge/PriorityBadge';
 
 function ComponentShowcase() {
   return (
@@ -74,7 +79,7 @@ function ComponentShowcase() {
       </section>
 
       <section>
-        <h1>StatusBadge</h1>
+        <h2>StatusBadge</h2>
 
         <StatusBadge 
           icon={Clock}
@@ -90,7 +95,25 @@ function ComponentShowcase() {
           icon={Check}
           status="Resolvido"
         />
+      </section>
 
+      <section>
+        <h2>PriorityBadge</h2>
+
+        <PriorityBadge 
+          icon={ArrowDown}
+          priority="Baixa"
+        />
+
+        <PriorityBadge 
+          icon={TriangleExclamationPoint}
+          priority="Média"
+        />
+
+        <PriorityBadge 
+          icon={CircleExclamationPoint}
+          priority="Alta"
+        />
       </section>
     </main>
   );

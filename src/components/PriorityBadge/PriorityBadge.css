@@ -1,0 +1,24 @@
+.priority-badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.priority-baixa {
+    background-color: var(--solve-background);
+    color: var(--solve-color);
+}
+
+.priority-media {
+    background-color: var(--medium-background);
+    color: var(--medium-color);
+}
+
+.priority-alta {
+    background-color: var(--high-background);
+    color: var(--high-color);
+}

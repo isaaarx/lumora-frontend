@@ -14,6 +14,12 @@
     --loading-color: #6656A4;
     --solve-color: #185F2A;
 
+    --medium-background: #FAEDC1;
+    --high-background: #FACFCD;
+
+    --medium-color: #EBC554;
+    --high-color: #EB3324;
+
     /* Textos */
     --light-text: #F9F5F1;
     --dark-text: #150D19;
