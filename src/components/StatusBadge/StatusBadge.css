@@ -1,0 +1,24 @@
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-aberto {
+    background-color: var(--open-background);
+    color: var(--open-color);
+}
+
+.status-em-andamento {
+    background-color: var(--loading-background);
+    color: var(--loading-color);
+}
+
+.status-resolvido {
+    background-color: var(--solve-background);
+    color: var(--solve-color);
+}

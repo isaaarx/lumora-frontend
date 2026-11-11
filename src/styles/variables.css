@@ -6,6 +6,14 @@
     --dark-color: #C6C2BD;
     --background-color: #F9F5F1;
 
+    --open-background: #C9C5C2;
+    --loading-background: #DBD4E1;
+    --solve-background: #D3E1D1;
+
+    --open-color: #150D19;
+    --loading-color: #6656A4;
+    --solve-color: #185F2A;
+
     /* Textos */
     --light-text: #F9F5F1;
     --dark-text: #150D19;

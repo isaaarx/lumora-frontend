@@ -9,6 +9,7 @@ import {
 
 import Button from '../components/Button/Button';
 import StatCard from '../components/Card/StatCard';
+import StatusBadge from '../components/StatusBadge/StatusBadge';
 
 function ComponentShowcase() {
   return (
@@ -52,7 +53,7 @@ function ComponentShowcase() {
 
         <StatCard
           icon={Archive}
-          value={1}
+          value={0}
           label="Total"
         />
         <StatCard
@@ -62,7 +63,7 @@ function ComponentShowcase() {
         />
         <StatCard
           icon={Play}
-          value={1}
+          value={0}
           label="Em andamento"
         />
         <StatCard
@@ -70,6 +71,26 @@ function ComponentShowcase() {
           value={0}
           label="Resolvidos"
         />
+      </section>
+
+      <section>
+        <h1>StatusBadge</h1>
+
+        <StatusBadge 
+          icon={Clock}
+          status="Aberto"
+        />
+
+        <StatusBadge 
+          icon={Play}
+          status="Em andamento"
+        />
+
+        <StatusBadge 
+          icon={Check}
+          status="Resolvido"
+        />
+
       </section>
     </main>
   );
