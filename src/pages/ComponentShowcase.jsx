@@ -17,6 +17,7 @@ import PriorityBadge from '../components/PriorityBadge/PriorityBadge';
 import Table from '../components/Table/Table';
 import tickets from '../mocks/tickets';
 import ChatInput from '../components/ChatInput/ChatInput';
+import SearchInput from '../components/SearchInput/SearchInput';
 
 function ComponentShowcase() {
   const totalTickets = tickets.length;
@@ -34,6 +35,8 @@ function ComponentShowcase() {
   ).length;
 
   const [message, setMessage] = useState('');
+
+  const [search, setSearch] = useState('');
 
   return (
     <main>
@@ -132,6 +135,15 @@ function ComponentShowcase() {
         <ChatInput
           value={message}
           onChange={(event) => setMessage(event.target.value)}
+        />
+      </section>
+
+      <section>
+        <h2>SearchInput</h2>
+        
+        <SearchInput 
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
         />
       </section>
     </main>

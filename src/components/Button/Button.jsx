@@ -10,7 +10,7 @@ function Button({
   icon: Icon,
   iconOnly = false,
   className = '',
-  iconSize = 18,
+  iconSize = 14,
   ariaLabel,
 }) {
   const buttonClasses = [
