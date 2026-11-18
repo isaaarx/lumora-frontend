@@ -21,3 +21,10 @@
   overflow: hidden;
   box-sizing: border-box;
 }
+
+.main-content-tickets {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}

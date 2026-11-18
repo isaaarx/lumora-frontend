@@ -1,4 +1,5 @@
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 
 import './Table.css';
 
@@ -10,8 +11,14 @@ import Pagination from '../Pagination/Pagination';
 function Table({ tickets }) {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const pageSize = 10;
+  const pageSize = 6;
 
+  // Voltar à primeira página quando os resultados mudarem
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [tickets]);
+
+  // Ordenar chamados: resolvidos sempre no final
   const sortedTickets = [...tickets].sort((a, b) => {
     if (a.status === 'Resolvido' && b.status !== 'Resolvido') return 1;
     if (a.status !== 'Resolvido' && b.status === 'Resolvido') return -1;
@@ -38,21 +45,35 @@ function Table({ tickets }) {
           </thead>
 
           <tbody>
-            {currentTickets.map((ticket) => (
-              <tr key={ticket.id}>
-                <td>{ticket.protocol}</td>
-                <td>{ticket.subject}</td>
-                <td>
-                  <StatusBadge status={ticket.status} />
-                </td>
-                <td>
-                  <PriorityBadge priority={ticket.priority} />
-                </td>
-                <td>
-                  <Button variant="outline">Visualizar</Button>
+            {currentTickets.length > 0 ? (
+              currentTickets.map((ticket) => (
+                <tr key={ticket.id}>
+                  <td>{ticket.protocol}</td>
+
+                  <td>{ticket.subject}</td>
+
+                  <td>
+                    <StatusBadge status={ticket.status} />
+                  </td>
+
+                  <td>
+                    <PriorityBadge priority={ticket.priority} />
+                  </td>
+
+                  <td>
+                    <Button variant="outline">
+                      Visualizar
+                    </Button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="table-empty">
+                  Nenhum chamado encontrado.
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
@@ -68,4 +89,3 @@ function Table({ tickets }) {
 }
 
 export default Table;
-

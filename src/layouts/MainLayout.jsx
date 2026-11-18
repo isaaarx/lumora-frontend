@@ -1,18 +1,38 @@
+
 import { useState } from 'react';
 import './MainLayout.css';
 
 import Sidebar from '../components/SideBar/SideBar';
 import ChatPage from '../pages/ChatPage/ChatPage';
+import TicketsPage from '../pages/TicketsPage/TicketsPage';
+
 import chatsMock from '../mocks/chats';
 
 function MainLayout() {
   const [chats, setChats] = useState(chatsMock);
   const [activeChatId, setActiveChatId] = useState(null);
+  const [activePage, setActivePage] = useState('chat');
 
   const activeChat = chats.find(
     (chat) => chat.id === activeChatId
   );
 
+  // Selecionar uma conversa
+  function handleSelectChat(chatId) {
+    setActiveChatId(chatId);
+    setActivePage('chat');
+  }
+
+  // Navegar entre páginas
+  function handleNavigate(page) {
+    setActivePage(page);
+
+    if (page === 'tickets') {
+      setActiveChatId(null);
+    }
+  }
+
+  // Criar um novo chat
   function handleNewChat() {
     const newChatId = Math.max(0, ...chats.map((chat) => chat.id)) + 1;
 
@@ -31,8 +51,10 @@ function MainLayout() {
     });
 
     setActiveChatId(newChatId);
+    setActivePage('chat');
   }
 
+  // Fixar ou desafixar uma conversa
   function handleTogglePin(chatId) {
     setChats((previousChats) => {
       const updatedChats = previousChats.map((chat) =>
@@ -48,6 +70,7 @@ function MainLayout() {
     });
   }
 
+  // Excluir uma conversa
   function handleDeleteChat(chatId) {
     setChats((previousChats) =>
       previousChats.filter((chat) => chat.id !== chatId)
@@ -58,6 +81,7 @@ function MainLayout() {
     }
   }
 
+  // Enviar mensagem
   function handleSendMessage(message) {
     let chatId = activeChatId;
 
@@ -108,17 +132,22 @@ function MainLayout() {
       <Sidebar
         chats={chats}
         activeChatId={activeChatId}
-        onSelectChat={setActiveChatId}
+        onSelectChat={handleSelectChat}
         onNewChat={handleNewChat}
         onTogglePin={handleTogglePin}
         onDeleteChat={handleDeleteChat}
+        onNavigate={handleNavigate}
       />
 
       <main className="main-content">
-        <ChatPage
-          chat={activeChat}
-          onSendMessage={handleSendMessage}
-        />
+        {activePage === 'chat' ? (
+          <ChatPage
+            chat={activeChat}
+            onSendMessage={handleSendMessage}
+          />
+        ) : (
+          <TicketsPage />
+        )}
       </main>
     </div>
   );

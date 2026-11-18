@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import './Sidebar.css';
+import './SideBar.css';
 
 import logo from '../../assets/logo.svg';
 
@@ -20,6 +20,7 @@ function Sidebar({
   onNewChat,
   onTogglePin,
   onDeleteChat,
+  onNavigate,
 }) {
   const [contextMenu, setContextMenu] = useState(null);
 
@@ -136,7 +137,10 @@ function Sidebar({
       </nav>
 
       <div className="sidebar-footer">
-        <div className="sidebar-item sidebar-item-active">
+        <div
+          className="sidebar-item sidebar-item-active"
+          onClick={() => onNavigate('tickets')}
+        >
           <Ticket size={18} />
           <span>Chamados</span>
         </div>
