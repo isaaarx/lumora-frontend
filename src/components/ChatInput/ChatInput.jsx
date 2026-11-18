@@ -10,20 +10,34 @@ function ChatInput({
   onSend,
   placeholder = 'Como a Lumi pode te ajudar?',
 }) {
+  const textareaRef = useRef(null);
 
-    const textareaRef = useRef(null);
+  useEffect(() => {
+    const textarea = textareaRef.current;
 
-    useEffect(() => {
-        const textarea = textareaRef.current;
+    if (!textarea) return;
 
-        if (!textarea) return;
+    textarea.style.height = '24px';
 
-        textarea.style.height = '24px';
+    const newHeight = Math.min(textarea.scrollHeight, 120);
 
-        const newHeight = Math.min(textarea.scrollHeight, 120);
+    textarea.style.height = `${newHeight}px`;
+  }, [value]);
 
-        textarea.style.height = `${newHeight}px`;
-        }, [value]);
+  function handleSend() {
+    const message = value.trim();
+
+    if (!message) return;
+
+    onSend(message);
+  }
+
+  function handleKeyDown(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      handleSend();
+    }
+  }
 
   return (
     <div className="chat-input">
@@ -31,6 +45,7 @@ function ChatInput({
         ref={textareaRef}
         value={value}
         onChange={onChange}
+        onKeyDown={handleKeyDown}
         placeholder={placeholder}
         rows={1}
       />
@@ -40,6 +55,7 @@ function ChatInput({
         iconOnly
         className="chat-input-send"
         ariaLabel="Enviar mensagem"
+        onClick={handleSend}
       />
     </div>
   );

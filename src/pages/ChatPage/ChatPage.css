@@ -1,0 +1,103 @@
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+/* Tela inicial */
+
+.chat-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 12px;
+}
+
+.chat-empty-state h1 {
+  margin: 0 0 42px;
+  color: var(--dark-text);
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.chat-empty-input {
+  width: min(680px, 85%);
+}
+
+.chat-empty-logo {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+/* Área que contém as mensagens */
+
+.chat-messages-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: min(900px, 90%);
+  margin: 0 auto;
+}
+
+/* Área com rolagem */
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 20px 0;
+}
+/* Conteúdo das mensagens */
+
+.chat-messages-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 18px;
+  min-height: 100%;
+  flex-shrink: 0;
+}
+/* Botão para voltar ao final */
+
+.chat-scroll-button {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--dark-color);
+  border-radius: 50%;
+  background-color: var(--background-color);
+  color: var(--dark-text);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  z-index: 2;
+  transition: background-color 0.2s ease;
+}
+
+.chat-scroll-button:hover {
+  background-color: var(--tertiary-color);
+}
+
+/* Campo de digitação inferior */
+
+.chat-input-footer {
+  width: min(900px, 90%);
+  margin: 12px auto;
+  flex-shrink: 0;
+}

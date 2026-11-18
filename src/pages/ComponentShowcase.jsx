@@ -18,6 +18,8 @@ import Table from '../components/Table/Table';
 import tickets from '../mocks/tickets';
 import ChatInput from '../components/ChatInput/ChatInput';
 import SearchInput from '../components/SearchInput/SearchInput';
+import Sidebar from '../components/SideBar/SideBar';
+import ChatBubble from '../components/ChatBubble/ChatBubble';
 
 function ComponentShowcase() {
   const totalTickets = tickets.length;
@@ -145,6 +147,30 @@ function ComponentShowcase() {
           value={search}
           onChange={(event) => setSearch(event.target.value)}
         />
+      </section>
+
+      <section>
+        <h2>Sidebar</h2>
+
+        <div className="sidebar-showcase">
+          <Sidebar />
+        </div>
+      </section>
+
+      <section>
+        <h2>ChatBubble</h2>
+
+        <div className="chat-bubble-showcase">
+          <ChatBubble
+            sender="user"
+            message="Olá, Lumi! Preciso de ajuda com meu computador."
+          />
+
+          <ChatBubble
+            sender="lumi"
+            message="Claro! Me conta o que está acontecendo com seu computador."
+          />
+        </div>
       </section>
     </main>
   );
