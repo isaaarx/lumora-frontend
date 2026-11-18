@@ -32,6 +32,7 @@ function Button({
       aria-label={ariaLabel}
     >
       {Icon && <Icon size={iconSize} aria-hidden="true" />}
+
       {children}
     </button>
   );

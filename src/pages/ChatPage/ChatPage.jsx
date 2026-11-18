@@ -23,13 +23,11 @@ function ChatPage({ chat, onSendMessage }) {
     });
   }, []);
 
-  // Limpa o campo ao trocar de conversa
   useEffect(() => {
     setMessage('');
     setShowScrollButton(false);
   }, [chat?.id]);
 
-  // Abre a conversa mostrando as mensagens mais recentes
   useEffect(() => {
     if (messages.length > 0) {
       scrollToBottom('auto');

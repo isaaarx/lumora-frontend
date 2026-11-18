@@ -10,6 +10,7 @@ import {
   PinOff,
   History,
   Ticket,
+  Trash2,
 } from 'lucide-react';
 
 function Sidebar({
@@ -18,13 +19,13 @@ function Sidebar({
   onSelectChat,
   onNewChat,
   onTogglePin,
+  onDeleteChat,
 }) {
   const [contextMenu, setContextMenu] = useState(null);
 
   const pinnedChats = chats.filter((chat) => chat.pinned);
   const historyChats = chats.filter((chat) => !chat.pinned);
 
-  // Abrir o menu com o botão direito
   function handleContextMenu(event, chat) {
     event.preventDefault();
 
@@ -36,18 +37,27 @@ function Sidebar({
     });
   }
 
-  // Fechar o menu
   function closeContextMenu() {
     setContextMenu(null);
   }
 
-  // Fixar ou desafixar conversa
   function handlePinChat() {
     onTogglePin(contextMenu.chatId);
     closeContextMenu();
   }
 
-  // Fechar ao clicar fora ou apertar ESC
+  function handleDeleteChat() {
+    const confirmed = window.confirm(
+      'Tem certeza que deseja excluir esta conversa? Essa ação não poderá ser desfeita.'
+    );
+
+    if (confirmed) {
+      onDeleteChat(contextMenu.chatId);
+    }
+
+    closeContextMenu();
+  }
+
   useEffect(() => {
     function handleClickOutside() {
       closeContextMenu();
@@ -153,6 +163,15 @@ function Sidebar({
                 <span>Fixar</span>
               </>
             )}
+          </button>
+
+          <button
+            type="button"
+            className="sidebar-context-delete"
+            onClick={handleDeleteChat}
+          >
+            <Trash2 size={16} />
+            <span>Excluir</span>
           </button>
         </div>
       )}

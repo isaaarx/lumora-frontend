@@ -1,9 +1,7 @@
-
-
 import { useState } from 'react';
 import './MainLayout.css';
 
-import Sidebar from '../components/Sidebar/Sidebar';
+import Sidebar from '../components/SideBar/SideBar';
 import ChatPage from '../pages/ChatPage/ChatPage';
 import chatsMock from '../mocks/chats';
 
@@ -15,7 +13,6 @@ function MainLayout() {
     (chat) => chat.id === activeChatId
   );
 
-  // Criar um novo chat
   function handleNewChat() {
     const newChatId = Math.max(0, ...chats.map((chat) => chat.id)) + 1;
 
@@ -36,7 +33,6 @@ function MainLayout() {
     setActiveChatId(newChatId);
   }
 
-  // Fixar ou desafixar uma conversa
   function handleTogglePin(chatId) {
     setChats((previousChats) => {
       const updatedChats = previousChats.map((chat) =>
@@ -52,11 +48,19 @@ function MainLayout() {
     });
   }
 
-  // Enviar mensagem
+  function handleDeleteChat(chatId) {
+    setChats((previousChats) =>
+      previousChats.filter((chat) => chat.id !== chatId)
+    );
+
+    if (activeChatId === chatId) {
+      setActiveChatId(null);
+    }
+  }
+
   function handleSendMessage(message) {
     let chatId = activeChatId;
 
-    // Criar um chat caso nenhum esteja selecionado
     if (chatId === null) {
       chatId = Math.max(0, ...chats.map((chat) => chat.id)) + 1;
 
@@ -107,6 +111,7 @@ function MainLayout() {
         onSelectChat={setActiveChatId}
         onNewChat={handleNewChat}
         onTogglePin={handleTogglePin}
+        onDeleteChat={handleDeleteChat}
       />
 
       <main className="main-content">

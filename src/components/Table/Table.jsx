@@ -12,14 +12,12 @@ function Table({ tickets }) {
 
   const pageSize = 10;
 
-  // Organiza os chamados, deixando os resolvidos no final.
   const sortedTickets = [...tickets].sort((a, b) => {
     if (a.status === 'Resolvido' && b.status !== 'Resolvido') return 1;
     if (a.status !== 'Resolvido' && b.status === 'Resolvido') return -1;
     return 0;
   });
 
-  // Calcula quais chamados serão exibidos na página atual.
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
 

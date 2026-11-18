@@ -18,7 +18,6 @@
   gap: 12px;
 }
 
-
 .pagination-current {
   display: flex;
   align-items: center;
@@ -31,7 +30,6 @@
   font-size: 14px;
   font-weight: 600;
 }
-
 
 .pagination-button {
   display: flex;

@@ -1,4 +1,3 @@
-
 .chat-bubble-wrapper {
   display: flex;
   width: 100%;
@@ -6,22 +5,16 @@
   box-sizing: border-box;
 }
 
-/* Mensagem do usuário */
-
 .chat-bubble-user {
   justify-content: flex-end;
   align-items: center;
 }
-
-/* Mensagem da Lumi */
 
 .chat-bubble-lumi {
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
 }
-
-/* Balões */
 
 .chat-bubble {
   max-width: 75%;
@@ -35,21 +28,15 @@
   box-sizing: border-box;
 }
 
-/* Balão do usuário */
-
 .chat-bubble-user .chat-bubble {
   background-color: var(--primary-color);
   border-bottom-right-radius: 4px;
 }
 
-/* Balão da Lumi */
-
 .chat-bubble-lumi .chat-bubble {
   background-color: var(--tertiary-color);
   border-bottom-left-radius: 4px;
 }
-
-/* Logo da Lumi */
 
 .chat-bubble-logo {
   width: 24px;

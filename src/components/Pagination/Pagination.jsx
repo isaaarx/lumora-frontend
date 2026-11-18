@@ -47,7 +47,6 @@ function Pagination({
             <ChevronRight size={18} />
         </button>
         </div>
-
     </div>
   );
 }

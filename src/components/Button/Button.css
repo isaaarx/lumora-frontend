@@ -1,4 +1,3 @@
-/* Estilos compartilhados */
 .button {
   padding: 8px 14px;
   border: none;
@@ -14,7 +13,6 @@
   gap: 8px;
 }
 
-/* Botão principal */
 .button-primary {
   background-color: var(--primary-color);
   color: var(--light-text);
@@ -24,7 +22,6 @@
   background-color: var(--secondary-color);
 }
 
-/* Botão outline */
 .button-outline {
   background-color: transparent;
   color: var(--dark-text);
@@ -39,18 +36,15 @@
   color: var(--light-text);
 }
 
-/* Botão desabilitado */
 .button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* Largura total */
 .button-full-width {
   width: 100%;
 }
 
-/* Botões somente com ícones */
 .button-icon-only {
   width: 30px;
   height: 30px;
@@ -58,7 +52,6 @@
   border-radius: 50%;
 }
 
-/* Botão de scroll */
 .button-scroll {
   width: 30px;
   height: 30px;
@@ -71,7 +64,6 @@
   background-color: var(--tertiary-color);
 }
 
-/* Botão de filtro */
 .button-filter {
   width: 38px;
   height: 38px;

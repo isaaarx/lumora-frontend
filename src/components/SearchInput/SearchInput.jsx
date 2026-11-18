@@ -1,4 +1,3 @@
-
 import './SearchInput.css';
 import { Search } from 'lucide-react';
 

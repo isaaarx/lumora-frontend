@@ -1,4 +1,3 @@
-
 const chats = [
   {
     id: 1,
