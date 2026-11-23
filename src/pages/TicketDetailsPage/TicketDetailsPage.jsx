@@ -11,8 +11,6 @@ import {
   ArrowDown,
   TriangleExclamationPoint,
   CircleExclamationPoint,
-  RefreshCw,
-  CircleAlert,
 } from 'lucide-react';
 
 import './TicketDetailsPage.css';
@@ -154,11 +152,26 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
         {history.length > 0 ? (
           <div className="ticket-history-list">
             {history.map((item, index) => {
-              const Icon = item.type === 'priority'
-                ? CircleAlert
-                : item.title?.includes('Aberto')
-                  ? RefreshCw
-                  : Check;
+              // O ícone do evento acompanha o novo valor, usando os mesmos
+              // ícones dos badges de status e prioridade da tabela.
+              const eventValue = item.value ?? item.status ?? item.priority ?? item.title ?? '';
+
+              const statusHistoryIcons = {
+                Aberto: Clock,
+                'Em andamento': Play,
+                Resolvido: Check,
+              };
+
+              const priorityHistoryIcons = {
+                Baixa: ArrowDown,
+                Média: TriangleExclamationPoint,
+                Alta: CircleExclamationPoint,
+              };
+
+              const isPriorityEvent = item.type === 'priority';
+              const iconMap = isPriorityEvent ? priorityHistoryIcons : statusHistoryIcons;
+              const matchedValue = Object.keys(iconMap).find((value) => eventValue.includes(value));
+              const Icon = iconMap[matchedValue] || (isPriorityEvent ? ArrowDown : Clock);
 
               return (
                 <article className="ticket-history-item" key={item.id ?? `${item.type}-${index}`}>
