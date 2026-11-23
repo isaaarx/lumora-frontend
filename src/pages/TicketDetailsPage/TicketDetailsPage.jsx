@@ -66,7 +66,7 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
             </div>
 
             <div className="ticket-edit-fields">
-              <label className="ticket-select-card ticket-status-select">
+              <label className={`ticket-select-card ticket-status-select ticket-status-${ticket.status.toLowerCase().replaceAll(" ", "-")}`}>
                 <Clock3 size={25} />
                 <span>
                   <small>Status</small>
@@ -82,7 +82,7 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
                 </span>
               </label>
 
-              <label className="ticket-select-card ticket-priority-select">
+              <label className={`ticket-select-card ticket-priority-select ticket-priority-${ticket.priority.toLowerCase()}`}>
                 <AlertTriangle size={25} />
                 <span>
                   <small>Prioridade</small>
