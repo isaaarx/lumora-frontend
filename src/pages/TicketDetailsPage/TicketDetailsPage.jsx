@@ -45,12 +45,6 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
     setHistory((previous) => [newEntry, ...previous]);
   }
 
-  const historyIcon = (type) => {
-    if (type === 'priority') return CircleAlert;
-    if (type === 'status' && history[0]?.title.includes('Aberto')) return RefreshCw;
-    return Check;
-  };
-
   return (
     <section className="ticket-details-page">
       <div className="ticket-details-heading">
