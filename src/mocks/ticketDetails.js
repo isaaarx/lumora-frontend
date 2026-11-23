@@ -3,7 +3,7 @@ const ticketDetails = {
     openedAt: '18/11/2026 às 14:32',
     requester: 'Isabela Oliveira',
     description:
-      'Minha impressora não está funcionando desde hoje de manhã. Já tentei reiniciar, mas o erro continua aparecendo na tela. A luz de Wi-Fi fica piscando e o computador não reconhece o dispositivo.\\n\\nPreciso da ajuda de vocês o mais rápido possível, por favor!',
+      'Minha impressora não está funcionando desde hoje de manhã. Já tentei reiniciar, mas o erro continua aparecendo na tela. A luz de Wi-Fi fica piscando e o computador não reconhece o dispositivo.\n\nPreciso da ajuda de vocês o mais rápido possível, por favor!',
     history: [
       {
         type: 'status',
@@ -30,19 +30,10 @@ const ticketDetails = {
 export function getTicketDetails(ticket) {
   return (
     ticketDetails[ticket.id] || {
-      openedAt: ticket.openedAt || 'Não informado',
-      requester: ticket.requester || 'Não informado',
-      description:
-        ticket.description ||
-        `O chamado foi registrado com o assunto: ${ticket.subject}.`,
-      history: [
-        {
-          type: 'status',
-          title: `Chamado registrado com status ${ticket.status}`,
-          date: ticket.openedAt || 'Data não informada',
-          author: ticket.requester || 'Solicitante',
-        },
-      ],
+      openedAt: 'Não informado no protótipo',
+      requester: 'Não informado no protótipo',
+      description: 'Descrição não disponível no protótipo.',
+      history: [],
     }
   );
 }
