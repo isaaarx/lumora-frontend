@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import './SideBar.css';
+import './Sidebar.css';
 
 import logo from '../../assets/logo.svg';
 
