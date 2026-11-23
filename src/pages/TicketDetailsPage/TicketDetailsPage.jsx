@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   ArrowLeft,
   CalendarDays,
@@ -19,14 +18,12 @@ import { getTicketDetails } from '../../mocks/ticketDetails';
 
 function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
   const details = getTicketDetails(ticket);
-  const [history, setHistory] = useState(details.history);
+  const history = ticket.history || details.history;
 
   function handleChange(field, value) {
     const previousValue = ticket[field];
 
     if (previousValue === value) return;
-
-    onUpdateTicket({ ...ticket, [field]: value });
 
     const label = field === 'status' ? 'Status' : 'Prioridade';
     const newEntry = {
@@ -42,7 +39,11 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
       author: 'Suporte Lumora',
     };
 
-    setHistory((previous) => [newEntry, ...previous]);
+    onUpdateTicket({
+      ...ticket,
+      [field]: value,
+      history: [newEntry, ...history],
+    });
   }
 
   return (
