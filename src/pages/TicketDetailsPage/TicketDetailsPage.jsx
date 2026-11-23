@@ -5,9 +5,12 @@ import {
   Hash,
   FileText,
   History,
-  Clock3,
-  AlertTriangle,
+  Clock,
+  Play,
   Check,
+  ArrowDown,
+  TriangleExclamationPoint,
+  CircleExclamationPoint,
   RefreshCw,
   CircleAlert,
 } from 'lucide-react';
@@ -33,6 +36,19 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
     Média: 'ticket-priority-medium',
     Alta: 'ticket-priority-high',
   }[ticket.priority] || '';
+
+  // Reutiliza exatamente os ícones exibidos nos badges da tabela.
+  const StatusIcon = {
+    Aberto: Clock,
+    'Em andamento': Play,
+    Resolvido: Check,
+  }[ticket.status] || Clock;
+
+  const PriorityIcon = {
+    Baixa: ArrowDown,
+    Média: TriangleExclamationPoint,
+    Alta: CircleExclamationPoint,
+  }[ticket.priority] || ArrowDown;
 
   function handleChange(field, value) {
     if (ticket[field] === value) return;
@@ -66,7 +82,7 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
 
             <div className="ticket-edit-fields">
               <label className={`ticket-select-card ticket-status-select ${statusClass}`}>
-                <Clock3 size={25} />
+                <StatusIcon size={25} aria-hidden="true" />
                 <span>
                   <small>Status</small>
                   <select
@@ -82,7 +98,7 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
               </label>
 
               <label className={`ticket-select-card ticket-priority-select ${priorityClass}`}>
-                <AlertTriangle size={25} />
+                <PriorityIcon size={25} aria-hidden="true" />
                 <span>
                   <small>Prioridade</small>
                   <select
