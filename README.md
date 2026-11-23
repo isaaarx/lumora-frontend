@@ -1,16 +1,46 @@
-# React + Vite
+# Lumora — Front-end
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Interface do sistema Lumora, desenvolvida com React e Vite.
 
-Currently, two official plugins are available:
+## Executar localmente
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+Verificações disponíveis:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run lint
+npm run build
+```
 
-## Expanding the Oxlint configuration
+## Organização
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- `src/components`: componentes reutilizáveis da interface.
+- `src/layouts`: estrutura principal e navegação entre telas.
+- `src/pages`: telas de chat, lista de chamados e detalhes do chamado.
+- `src/mocks`: dados temporários usados para demonstrar a interface.
+- `src/assets`: imagens e identidade visual.
+- `src/styles`: variáveis e estilos globais.
+
+## Situação da integração
+
+A aplicação ainda utiliza dados locais de demonstração. O estado de chats e chamados é mantido em `MainLayout.jsx` com React state; alterações são perdidas ao atualizar a página. Não há chamadas HTTP nem camada de serviços/API implementada.
+
+Pontos de integração:
+
+- **Chamados:** substituir `src/mocks/tickets.js` e os dados de `src/mocks/ticketDetails.js` pelas respostas da API.
+- **Detalhes:** a tela utiliza os campos `id`, `protocol`, `subject`, `status` e `priority` no chamado; os detalhes adicionais exibidos são data de abertura, solicitante e descrição.
+- **Status e prioridade:** os seletores já disparam `onUpdateTicket`. Na integração, esse fluxo deve chamar o endpoint de atualização e atualizar a interface com o chamado retornado pelo servidor.
+- **Histórico:** a tela espera `ticket.history` como uma lista de eventos. Cada item é exibido com `id` (opcional), `type` (`status` ou `priority`), `title`, `date` e `author`. Para que o ícone corresponda exatamente à alteração, a API também deve enviar `value` com o novo valor (`Aberto`, `Em andamento`, `Resolvido`, `Baixa`, `Média` ou `Alta`). O front-end também consegue identificar esses valores pelo título como alternativa. O histórico deve ser criado e persistido pelo back-end; o front-end não gera eventos fictícios.
+- **Chat:** a interface permite enviar mensagens e exibe as mensagens recebidas em `chat.messages`, mas atualmente só adiciona localmente a mensagem do usuário. A resposta da Lumi e a persistência das conversas dependem da integração com o serviço de chat/IA.
+
+Os nomes acima descrevem o formato consumido pela interface. Caso a API utilize outros nomes ou estruturas, façam a conversão em uma camada de serviço/adapter, sem espalhar regras de mapeamento pelos componentes.
+
+## Observações
+
+- Os textos e registros em `src/mocks` são apenas dados de demonstração, não representam dados reais.
+- Autenticação, autorização, persistência, regras de negócio e registro de auditoria/histórico devem ser responsabilidade do back-end.
+- A interface não deve ser considerada integrada até que as chamadas à API, estados de carregamento/erro e testes com respostas reais estejam implementados.

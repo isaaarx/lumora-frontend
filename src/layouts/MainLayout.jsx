@@ -1,41 +1,58 @@
-
 import { useState } from 'react';
 import './MainLayout.css';
 
-import Sidebar from '../components/SideBar/SideBar';
+import Sidebar from '../components/Sidebar/Sidebar';
 import ChatPage from '../pages/ChatPage/ChatPage';
 import TicketsPage from '../pages/TicketsPage/TicketsPage';
+import TicketDetailsPage from '../pages/TicketDetailsPage/TicketDetailsPage';
 
 import chatsMock from '../mocks/chats';
+import ticketsMock from '../mocks/tickets';
 
 function MainLayout() {
   const [chats, setChats] = useState(chatsMock);
+  const [tickets, setTickets] = useState(ticketsMock);
   const [activeChatId, setActiveChatId] = useState(null);
   const [activePage, setActivePage] = useState('chat');
+  const [selectedTicketId, setSelectedTicketId] = useState(null);
 
-  const activeChat = chats.find(
-    (chat) => chat.id === activeChatId
-  );
+  const activeChat = chats.find((chat) => chat.id === activeChatId);
+  const selectedTicket = tickets.find((ticket) => ticket.id === selectedTicketId);
 
-  // Selecionar uma conversa
   function handleSelectChat(chatId) {
     setActiveChatId(chatId);
     setActivePage('chat');
   }
 
-  // Navegar entre páginas
   function handleNavigate(page) {
     setActivePage(page);
 
     if (page === 'tickets') {
       setActiveChatId(null);
+      setSelectedTicketId(null);
     }
   }
 
-  // Criar um novo chat
+  function handleViewTicket(ticket) {
+    setSelectedTicketId(ticket.id);
+    setActivePage('ticket-details');
+  }
+
+  function handleUpdateTicket(updatedTicket) {
+    setTickets((previousTickets) =>
+      previousTickets.map((ticket) =>
+        ticket.id === updatedTicket.id ? updatedTicket : ticket
+      )
+    );
+  }
+
+  function handleBackToTickets() {
+    setActivePage('tickets');
+    setSelectedTicketId(null);
+  }
+
   function handleNewChat() {
     const newChatId = Math.max(0, ...chats.map((chat) => chat.id)) + 1;
-
     const newChat = {
       id: newChatId,
       title: 'Novo chat',
@@ -46,7 +63,6 @@ function MainLayout() {
     setChats((previousChats) => {
       const pinnedChats = previousChats.filter((chat) => chat.pinned);
       const historyChats = previousChats.filter((chat) => !chat.pinned);
-
       return [...pinnedChats, newChat, ...historyChats];
     });
 
@@ -54,40 +70,31 @@ function MainLayout() {
     setActivePage('chat');
   }
 
-  // Fixar ou desafixar uma conversa
   function handleTogglePin(chatId) {
     setChats((previousChats) => {
       const updatedChats = previousChats.map((chat) =>
-        chat.id === chatId
-          ? { ...chat, pinned: !chat.pinned }
-          : chat
+        chat.id === chatId ? { ...chat, pinned: !chat.pinned } : chat
       );
 
       const pinnedChats = updatedChats.filter((chat) => chat.pinned);
       const historyChats = updatedChats.filter((chat) => !chat.pinned);
-
       return [...pinnedChats, ...historyChats];
     });
   }
 
-  // Excluir uma conversa
   function handleDeleteChat(chatId) {
-    setChats((previousChats) =>
-      previousChats.filter((chat) => chat.id !== chatId)
-    );
+    setChats((previousChats) => previousChats.filter((chat) => chat.id !== chatId));
 
     if (activeChatId === chatId) {
       setActiveChatId(null);
     }
   }
 
-  // Enviar mensagem
   function handleSendMessage(message) {
     let chatId = activeChatId;
 
     if (chatId === null) {
       chatId = Math.max(0, ...chats.map((chat) => chat.id)) + 1;
-
       const newChat = {
         id: chatId,
         title: message.slice(0, 30),
@@ -98,7 +105,6 @@ function MainLayout() {
       setChats((previousChats) => {
         const pinnedChats = previousChats.filter((chat) => chat.pinned);
         const historyChats = previousChats.filter((chat) => !chat.pinned);
-
         return [...pinnedChats, newChat, ...historyChats];
       });
 
@@ -116,10 +122,7 @@ function MainLayout() {
         chat.id === chatId
           ? {
               ...chat,
-              title:
-                chat.messages.length === 0
-                  ? message.slice(0, 30)
-                  : chat.title,
+              title: chat.messages.length === 0 ? message.slice(0, 30) : chat.title,
               messages: [...chat.messages, newMessage],
             }
           : chat
@@ -141,12 +144,15 @@ function MainLayout() {
 
       <main className="main-content">
         {activePage === 'chat' ? (
-          <ChatPage
-            chat={activeChat}
-            onSendMessage={handleSendMessage}
+          <ChatPage chat={activeChat} onSendMessage={handleSendMessage} />
+        ) : activePage === 'ticket-details' && selectedTicket ? (
+          <TicketDetailsPage
+            ticket={selectedTicket}
+            onBack={handleBackToTickets}
+            onUpdateTicket={handleUpdateTicket}
           />
         ) : (
-          <TicketsPage />
+          <TicketsPage tickets={tickets} onViewTicket={handleViewTicket} />
         )}
       </main>
     </div>

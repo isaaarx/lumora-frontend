@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 import './Table.css';
@@ -8,17 +7,15 @@ import StatusBadge from '../StatusBadge/StatusBadge';
 import PriorityBadge from '../PriorityBadge/PriorityBadge';
 import Pagination from '../Pagination/Pagination';
 
-function Table({ tickets }) {
+function Table({ tickets, onViewTicket }) {
   const [currentPage, setCurrentPage] = useState(1);
 
   const pageSize = 6;
 
-  // Voltar à primeira página quando os resultados mudarem
   useEffect(() => {
     setCurrentPage(1);
   }, [tickets]);
 
-  // Ordenar chamados: resolvidos sempre no final
   const sortedTickets = [...tickets].sort((a, b) => {
     if (a.status === 'Resolvido' && b.status !== 'Resolvido') return 1;
     if (a.status !== 'Resolvido' && b.status === 'Resolvido') return -1;
@@ -27,7 +24,6 @@ function Table({ tickets }) {
 
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
-
   const currentTickets = sortedTickets.slice(startIndex, endIndex);
 
   return (
@@ -49,19 +45,14 @@ function Table({ tickets }) {
               currentTickets.map((ticket) => (
                 <tr key={ticket.id}>
                   <td>{ticket.protocol}</td>
-
                   <td>{ticket.subject}</td>
-
+                  <td><StatusBadge status={ticket.status} /></td>
+                  <td><PriorityBadge priority={ticket.priority} /></td>
                   <td>
-                    <StatusBadge status={ticket.status} />
-                  </td>
-
-                  <td>
-                    <PriorityBadge priority={ticket.priority} />
-                  </td>
-
-                  <td>
-                    <Button variant="outline">
+                    <Button
+                      variant="outline"
+                      onClick={() => onViewTicket(ticket)}
+                    >
                       Visualizar
                     </Button>
                   </td>

@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from 'react';
-import './SideBar.css';
+import './Sidebar.css';
 
-import logo from '../../assets/logo.svg';
+// O nome do arquivo diferencia maiúsculas e minúsculas no deploy.
+import logo from '../../assets/Logo.svg';
 
 import {
   MessageCircle,
