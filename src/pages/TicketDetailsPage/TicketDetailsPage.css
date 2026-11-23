@@ -51,6 +51,43 @@
   gap: 12px;
 }
 
+/* As cores acompanham os mesmos estados e prioridades dos badges da tabela. */
+.ticket-status-open {
+  border-color: var(--open-background);
+  background: var(--open-background);
+  color: var(--open-color);
+}
+
+.ticket-status-in-progress {
+  border-color: var(--loading-background);
+  background: var(--loading-background);
+  color: var(--loading-color);
+}
+
+.ticket-status-solved {
+  border-color: var(--solve-background);
+  background: var(--solve-background);
+  color: var(--solve-color);
+}
+
+.ticket-priority-low {
+  border-color: var(--solve-background);
+  background: var(--solve-background);
+  color: var(--solve-color);
+}
+
+.ticket-priority-medium {
+  border-color: var(--medium-background);
+  background: var(--medium-background);
+  color: var(--medium-color);
+}
+
+.ticket-priority-high {
+  border-color: var(--high-background);
+  background: var(--high-background);
+  color: var(--high-color);
+}
+
 .ticket-select-card {
   display: flex;
   align-items: center;
