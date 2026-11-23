@@ -51,38 +51,34 @@
   gap: 12px;
 }
 
-/* As cores acompanham os mesmos estados e prioridades dos badges da tabela. */
-.ticket-status-open {
+/* As cores acompanham os mesmos estados e prioridades dos badges da tabela.
+   A especificidade maior impede que os estilos-base dos seletores sobrescrevam as cores. */
+.ticket-select-card.ticket-status-open,
+.ticket-select-card.ticket-priority-low {
   border-color: var(--open-background);
   background: var(--open-background);
   color: var(--open-color);
 }
 
-.ticket-status-in-progress {
+.ticket-select-card.ticket-status-in-progress {
   border-color: var(--loading-background);
   background: var(--loading-background);
   color: var(--loading-color);
 }
 
-.ticket-status-solved {
+.ticket-select-card.ticket-status-solved {
   border-color: var(--solve-background);
   background: var(--solve-background);
   color: var(--solve-color);
 }
 
-.ticket-priority-low {
-  border-color: var(--solve-background);
-  background: var(--solve-background);
-  color: var(--solve-color);
-}
-
-.ticket-priority-medium {
+.ticket-select-card.ticket-priority-medium {
   border-color: var(--medium-background);
   background: var(--medium-background);
   color: var(--medium-color);
 }
 
-.ticket-priority-high {
+.ticket-select-card.ticket-priority-high {
   border-color: var(--high-background);
   background: var(--high-background);
   color: var(--high-color);
@@ -113,12 +109,22 @@
   font-size: 12px;
 }
 
+.ticket-select-card.ticket-status-open small,
+.ticket-select-card.ticket-status-in-progress small,
+.ticket-select-card.ticket-status-solved small,
+.ticket-select-card.ticket-priority-low small,
+.ticket-select-card.ticket-priority-medium small,
+.ticket-select-card.ticket-priority-high small {
+  color: inherit;
+  opacity: 0.8;
+}
+
 .ticket-select-card select {
   width: 100%;
   border: 0;
   outline: 0;
   background: transparent;
-  color: var(--dark-text);
+  color: inherit;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
