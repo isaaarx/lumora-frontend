@@ -28,7 +28,7 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
     const label = field === 'status' ? 'Status' : 'Prioridade';
     const newEntry = {
       type: field,
-      title: `${label} alterada para ${value}`,
+      title: `${label} ${field === 'status' ? 'alterado' : 'alterada'} para ${value}`,
       date: new Date().toLocaleString('pt-BR', {
         day: '2-digit',
         month: '2-digit',
@@ -42,7 +42,7 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
     onUpdateTicket({
       ...ticket,
       [field]: value,
-      history: [newEntry, ...history],
+      history: [...history, newEntry],
     });
   }
 
