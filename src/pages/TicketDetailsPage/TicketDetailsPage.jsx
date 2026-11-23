@@ -18,31 +18,17 @@ import { getTicketDetails } from '../../mocks/ticketDetails';
 
 function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
   const details = getTicketDetails(ticket);
-  const history = ticket.history || details.history;
+  // O histórico deve vir da API. Não criamos eventos fictícios no front-end.
+  const history = ticket.history ?? [];
 
   function handleChange(field, value) {
-    const previousValue = ticket[field];
+    if (ticket[field] === value) return;
 
-    if (previousValue === value) return;
-
-    const label = field === 'status' ? 'Status' : 'Prioridade';
-    const newEntry = {
-      type: field,
-      title: `${label} ${field === 'status' ? 'alterado' : 'alterada'} para ${value}`,
-      date: new Date().toLocaleString('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-      }).replace(',', ' às'),
-      author: 'Suporte Lumora',
-    };
-
+    // Na integração, este callback deverá chamar o endpoint de atualização
+    // e atualizar a tela com o chamado retornado pelo back-end.
     onUpdateTicket({
       ...ticket,
       [field]: value,
-      history: [...history, newEntry],
     });
   }
 
@@ -66,7 +52,7 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
             </div>
 
             <div className="ticket-edit-fields">
-              <label className={`ticket-select-card ticket-status-select ticket-status-${ticket.status.toLowerCase().replaceAll(" ", "-")}`}>
+              <label className={`ticket-select-card ticket-status-select ticket-status-${ticket.status.toLowerCase().replaceAll(' ', '-')}`}>
                 <Clock3 size={25} />
                 <span>
                   <small>Status</small>
@@ -141,12 +127,12 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
             {history.map((item, index) => {
               const Icon = item.type === 'priority'
                 ? CircleAlert
-                : item.title.includes('Aberto')
+                : item.title?.includes('Aberto')
                   ? RefreshCw
                   : Check;
 
               return (
-                <article className="ticket-history-item" key={`${item.title}-${index}`}>
+                <article className="ticket-history-item" key={item.id ?? `${item.type}-${index}`}>
                   <span className="ticket-history-icon"><Icon size={24} /></span>
                   <div className="ticket-history-content">
                     <strong>{item.title}</strong>
