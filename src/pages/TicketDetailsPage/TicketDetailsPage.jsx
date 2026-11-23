@@ -21,6 +21,19 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
   // O histórico deve vir da API. Não criamos eventos fictícios no front-end.
   const history = ticket.history ?? [];
 
+  // Mantém as cores dos seletores alinhadas às cores dos badges da listagem.
+  const statusClass = {
+    Aberto: 'ticket-status-open',
+    'Em andamento': 'ticket-status-in-progress',
+    Resolvido: 'ticket-status-solved',
+  }[ticket.status] || '';
+
+  const priorityClass = {
+    Baixa: 'ticket-priority-low',
+    Média: 'ticket-priority-medium',
+    Alta: 'ticket-priority-high',
+  }[ticket.priority] || '';
+
   function handleChange(field, value) {
     if (ticket[field] === value) return;
 
@@ -52,7 +65,7 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
             </div>
 
             <div className="ticket-edit-fields">
-              <label className={`ticket-select-card ticket-status-select ticket-status-${ticket.status.toLowerCase().replaceAll(' ', '-')}`}>
+              <label className={`ticket-select-card ticket-status-select ${statusClass}`}>
                 <Clock3 size={25} />
                 <span>
                   <small>Status</small>
@@ -68,7 +81,7 @@ function TicketDetailsPage({ ticket, onBack, onUpdateTicket }) {
                 </span>
               </label>
 
-              <label className={`ticket-select-card ticket-priority-select ticket-priority-${ticket.priority.toLowerCase()}`}>
+              <label className={`ticket-select-card ticket-priority-select ${priorityClass}`}>
                 <AlertTriangle size={25} />
                 <span>
                   <small>Prioridade</small>
