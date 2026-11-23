@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './MainLayout.css';
 
-import Sidebar from '../components/SideBar/SideBar';
+import Sidebar from '../components/Sidebar/Sidebar';
 import ChatPage from '../pages/ChatPage/ChatPage';
 import TicketsPage from '../pages/TicketsPage/TicketsPage';
 import TicketDetailsPage from '../pages/TicketDetailsPage/TicketDetailsPage';
