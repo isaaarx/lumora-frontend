@@ -53,11 +53,16 @@
 
 /* As cores acompanham os mesmos estados e prioridades dos badges da tabela.
    A especificidade maior impede que os estilos-base dos seletores sobrescrevam as cores. */
-.ticket-select-card.ticket-status-open,
-.ticket-select-card.ticket-priority-low {
+.ticket-select-card.ticket-status-open {
   border-color: var(--open-background);
   background: var(--open-background);
   color: var(--open-color);
+}
+
+.ticket-select-card.ticket-priority-low {
+  border-color: var(--solve-background);
+  background: var(--solve-background);
+  color: var(--solve-color);
 }
 
 .ticket-select-card.ticket-status-in-progress {
