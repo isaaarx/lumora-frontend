@@ -33,6 +33,13 @@
   object-fit: contain;
 }
 
+.chat-intro {
+  max-width: 34rem;
+  margin: 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
 .chat-messages-container {
   position: relative;
   display: flex;

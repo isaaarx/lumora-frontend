@@ -30,12 +30,15 @@ export default function ChatPage({ chat, archive, choosing, onSelect, onChoose, 
       </div> : <>
         <header className="chat-session"><strong>{chat.session.character.name}</strong>
           {chat.session.adapter === 'mock' && <span>Simulação</span>}
+          {chat.session.response_mode === 'excerpts' && <span>Consulta de artigos · sem IA</span>}
           <button onClick={onChoose}>Trocar técnico</button>
         </header>
         {chat.notice && !archive && <p role="status">{chat.notice}</p>}
         {archive && <p>Conversa anterior · somente leitura</p>}
         {items.length === 0 ? <div className="chat-empty-state">
           <img src={logo} alt="Lumi" className="chat-empty-logo" /><h1>Como posso ajudar?</h1>
+          {chat.session.response_mode === 'excerpts' && <p className="chat-intro">Digite uma pergunta sobre os artigos publicados. Você verá os trechos e suas fontes, sem resposta gerada por IA.</p>}
+          <p className="chat-intro">2. Digite sua pergunta no campo abaixo e pressione Enter para consultar.</p>
         </div> : <div className="chat-messages-container"><div className="chat-messages" role="log" onScroll={({ currentTarget: el }) =>
           setShowScrollButton(el.scrollHeight - el.scrollTop - el.clientHeight > 100)}>
           <div className="chat-messages-content">
