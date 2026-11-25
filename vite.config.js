@@ -5,6 +5,6 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
     plugins: [react()],
-    server: { proxy: { '/api': env.VITE_API_PROXY || 'http://127.0.0.1:8000' } },
+    server: { proxy: { '/api': env.VITE_API_PROXY || 'http://127.0.0.1:8080' } },
   };
 });
