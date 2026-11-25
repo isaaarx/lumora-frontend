@@ -16,6 +16,7 @@ import {
 function Sidebar({
   chats,
   activeChatId,
+  currentId,
   onSelectChat,
   onNewChat,
   onTogglePin,
@@ -169,14 +170,14 @@ function Sidebar({
             )}
           </button>
 
-          <button
+          {contextMenu.chatId !== currentId && <button
             type="button"
             className="sidebar-context-delete"
             onClick={handleDeleteChat}
           >
             <Trash2 size={16} />
             <span>Excluir</span>
-          </button>
+          </button>}
         </div>
       )}
     </aside>
