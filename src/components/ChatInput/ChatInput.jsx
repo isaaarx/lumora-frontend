@@ -8,6 +8,7 @@ function ChatInput({
   value = '',
   onChange,
   onSend,
+  disabled = false,
   placeholder = 'Como a Lumi pode te ajudar?',
 }) {
   const textareaRef = useRef(null);
@@ -27,13 +28,13 @@ function ChatInput({
   function handleSend() {
     const message = value.trim();
 
-    if (!message) return;
+    if (disabled || !message) return;
 
     onSend(message);
   }
 
   function handleKeyDown(event) {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {
       event.preventDefault();
       handleSend();
     }
@@ -48,9 +49,13 @@ function ChatInput({
         onKeyDown={handleKeyDown}
         placeholder={placeholder}
         rows={1}
+        aria-label="Sua mensagem"
+        maxLength={4000}
+        disabled={disabled}
       />
 
       <Button
+        disabled={disabled || !value.trim()}
         icon={Send}
         iconOnly
         className="chat-input-send"

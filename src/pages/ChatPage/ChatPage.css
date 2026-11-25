@@ -91,3 +91,25 @@
   margin: 12px auto;
   flex-shrink: 0;
 }
+
+.chat-session, .chat-page .options {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chat-page .character-picker { display: grid; gap: 8px; overflow-y: auto; }
+.chat-page button:not(.chat-input-send) { cursor: pointer; }
+.chat-bubble .message-text, .chat-bubble-user .chat-bubble, .chat-page .preview {
+  white-space: pre-wrap;
+}
+.chat-page .sources { border-top: 1px solid var(--dark-color); margin-top: 12px; }
+.chat-page .sources blockquote { margin-inline: 0; }
+@media (max-width: 680px) {
+  .main-layout { flex-direction: column; height: 100dvh; }
+  .main-layout .sidebar { width: 100%; min-width: 0; height: auto; max-height: 25vh; padding: 8px; overflow: auto; }
+  .main-layout .sidebar-header { display: none; }
+  .main-layout .sidebar-nav { flex: none; overflow: visible; }
+  .main-layout .sidebar-section:has(.sidebar-chat-list:empty) { display: none; }
+  .main-layout .main-content { padding: 12px; margin: 4px; }
+}

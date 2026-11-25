@@ -6,21 +6,32 @@ import ChatPage from '../pages/ChatPage/ChatPage';
 import TicketsPage from '../pages/TicketsPage/TicketsPage';
 import TicketDetailsPage from '../pages/TicketDetailsPage/TicketDetailsPage';
 
-import chatsMock from '../mocks/chats';
+import { useConversation } from '../useConversation';
 import ticketsMock from '../mocks/tickets';
 
 function MainLayout() {
-  const [chats, setChats] = useState(chatsMock);
+  const chat = useConversation();
+  const [archives, setArchives] = useState([]);
+  const [pinned, setPinned] = useState([]);
+  const [viewId, setViewId] = useState(null);
+  const [choosing, setChoosing] = useState(false);
   const [tickets, setTickets] = useState(ticketsMock);
-  const [activeChatId, setActiveChatId] = useState(null);
   const [activePage, setActivePage] = useState('chat');
   const [selectedTicketId, setSelectedTicketId] = useState(null);
-
-  const activeChat = chats.find((chat) => chat.id === activeChatId);
+  const current = chat.session && {
+    id: chat.session.thread_id,
+    title: chat.items.find(item => item.from === 'user')?.text.slice(0, 40) || 'Conversa atual',
+    items: chat.items,
+  };
+  const archive = archives.find(item => item.id === viewId);
+  const chats = [...(current ? [current] : []), ...archives].map(item => ({
+    ...item, pinned: pinned.includes(item.id),
+  }));
   const selectedTicket = tickets.find((ticket) => ticket.id === selectedTicketId);
 
   function handleSelectChat(chatId) {
-    setActiveChatId(chatId);
+    setViewId(chatId);
+    setChoosing(false);
     setActivePage('chat');
   }
 
@@ -28,7 +39,6 @@ function MainLayout() {
     setActivePage(page);
 
     if (page === 'tickets') {
-      setActiveChatId(null);
       setSelectedTicketId(null);
     }
   }
@@ -52,89 +62,40 @@ function MainLayout() {
   }
 
   function handleNewChat() {
-    const newChatId = Math.max(0, ...chats.map((chat) => chat.id)) + 1;
-    const newChat = {
-      id: newChatId,
-      title: 'Novo chat',
-      pinned: false,
-      messages: [],
-    };
-
-    setChats((previousChats) => {
-      const pinnedChats = previousChats.filter((chat) => chat.pinned);
-      const historyChats = previousChats.filter((chat) => !chat.pinned);
-      return [...pinnedChats, newChat, ...historyChats];
-    });
-
-    setActiveChatId(newChatId);
     setActivePage('chat');
+    setViewId(null);
+    setChoosing(true);
   }
 
-  function handleTogglePin(chatId) {
-    setChats((previousChats) => {
-      const updatedChats = previousChats.map((chat) =>
-        chat.id === chatId ? { ...chat, pinned: !chat.pinned } : chat
-      );
-
-      const pinnedChats = updatedChats.filter((chat) => chat.pinned);
-      const historyChats = updatedChats.filter((chat) => !chat.pinned);
-      return [...pinnedChats, ...historyChats];
-    });
-  }
-
-  function handleDeleteChat(chatId) {
-    setChats((previousChats) => previousChats.filter((chat) => chat.id !== chatId));
-
-    if (activeChatId === chatId) {
-      setActiveChatId(null);
+  async function selectCharacter(id) {
+    const sameCharacter = !chat.expired && chat.session?.character.id === id;
+    if (await chat.start(id)) {
+      if (sameCharacter && current) setArchives(previous => [current, ...previous]);
+      else {
+        setArchives([]);
+        setPinned([]);
+      }
+      setViewId(null);
+      setChoosing(false);
     }
   }
 
-  function handleSendMessage(message) {
-    let chatId = activeChatId;
+  function handleTogglePin(id) {
+    setPinned(previous => previous.includes(id) ? previous.filter(key => key !== id) : [...previous, id]);
+  }
 
-    if (chatId === null) {
-      chatId = Math.max(0, ...chats.map((chat) => chat.id)) + 1;
-      const newChat = {
-        id: chatId,
-        title: message.slice(0, 30),
-        pinned: false,
-        messages: [],
-      };
-
-      setChats((previousChats) => {
-        const pinnedChats = previousChats.filter((chat) => chat.pinned);
-        const historyChats = previousChats.filter((chat) => !chat.pinned);
-        return [...pinnedChats, newChat, ...historyChats];
-      });
-
-      setActiveChatId(chatId);
-    }
-
-    const newMessage = {
-      id: Date.now(),
-      sender: 'user',
-      message,
-    };
-
-    setChats((previousChats) =>
-      previousChats.map((chat) =>
-        chat.id === chatId
-          ? {
-              ...chat,
-              title: chat.messages.length === 0 ? message.slice(0, 30) : chat.title,
-              messages: [...chat.messages, newMessage],
-            }
-          : chat
-      )
-    );
+  function handleDeleteChat(id) {
+    setArchives(previous => previous.filter(item => item.id !== id));
+    setPinned(previous => previous.filter(key => key !== id));
+    if (id === viewId) setViewId(null);
   }
 
   return (
     <div className="main-layout">
       <Sidebar
         chats={chats}
-        activeChatId={activeChatId}
+        activeChatId={viewId ?? current?.id}
+        currentId={current?.id}
         onSelectChat={handleSelectChat}
         onNewChat={handleNewChat}
         onTogglePin={handleTogglePin}
@@ -143,8 +104,10 @@ function MainLayout() {
       />
 
       <main className="main-content">
+        {activePage !== 'chat' && <p>Chamados de demonstração · dados locais</p>}
         {activePage === 'chat' ? (
-          <ChatPage chat={activeChat} onSendMessage={handleSendMessage} />
+          <ChatPage chat={chat} archive={archive} choosing={choosing}
+            onChoose={handleNewChat} onSelect={selectCharacter} onCancel={() => setChoosing(false)} />
         ) : activePage === 'ticket-details' && selectedTicket ? (
           <TicketDetailsPage
             ticket={selectedTicket}
