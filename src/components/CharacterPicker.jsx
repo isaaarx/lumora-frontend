@@ -22,13 +22,13 @@ export default function CharacterPicker({ onSelect, disabled, activeId }) {
   }, [attempt]);
   return (
     <section aria-labelledby="character-title" className="character-picker">
-      <h2 id="character-title">Escolha um técnico</h2>
-      <p className="muted">Personagens fictícios para a demonstração.</p>
+      <h2 id="character-title">1. Escolha um técnico para iniciar o chat</h2>
+      <p className="muted">Clique em um nome abaixo. São personagens fictícios; o servidor define o acesso da sessão.</p>
       {state.status === "loading" && (
         <p role="status">Carregando personagens…</p>
       )}
       {state.status === "error" && (
-        <p role="alert">Não foi possível carregar os personagens.</p>
+        <p role="alert">Não foi possível carregar os técnicos. Confira se a API está em execução na porta 8000 e tente novamente.</p>
       )}
       {state.status === "ready" && !state.characters.length && (
         <p>Nenhum personagem disponível.</p>
